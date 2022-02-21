@@ -16,10 +16,10 @@ class Animate:
 
     def main(self, coords, other_blit):
         for i in range(14):
-            for j in other_blit:
-                self.screen.blit(j, coords)
-            Animate.BLIT_IMG = Animate.ANIM_FILES[i]
-            self.screen.blit(Animate.BLIT_IMG, coords)
+            if i == 7:
+                yield
+            self.screen.blit(other_blit, coords)
+            self.screen.blit(Animate.ANIM_FILES[i], coords)
             pygame.display.flip()
             time.sleep(0.01)
         return

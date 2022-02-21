@@ -40,9 +40,11 @@ while True:
 
 		for x in flip_list:
 			x[0].check_key(''.join(random.choices(string.ascii_lowercase,k=1)), KEY_INPUT)
-			#anim.main(x[1], [x[0].BLIT_IMG])
+			a = anim.main(x[1], x[0].BLIT_IMG)
 			SCREEN.blit(x[0].BLIT_IMG, x[1])
+			next(a)
 		pygame.display.update()
+			
 
 
 		#SCREEN.blit(flip_list[0][0].BLIT_IMG, flip_list[0][1])
@@ -66,6 +68,6 @@ while True:
 			exit()
 		elif KEY_INPUT and event.type == pygame.KEYDOWN:
 			check.check_key(event.key, KEY_INPUT)
-			anim.main((0, 0), [check.BLIT_IMG])
+			anim.main((0, 0), check.BLIT_IMG)
 
 	pygame.display.flip()
