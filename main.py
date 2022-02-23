@@ -31,34 +31,40 @@ flip_list = [
 	[Check(), (200, 0)],
 ]
 
+for x in flip_list:
+	x[0].check_key(''.join(random.choices(string.ascii_lowercase,k=1)), KEY_INPUT)
+	SCREEN.blit(x[0].BLIT_IMG, x[1])
 
+count = 0
 
 while True:
-	SCREEN.fill((255, 255, 255))
+	#SCREEN.fill((255, 255, 255))
 
 	if not KEY_INPUT:
 
-		for x in flip_list:
-			x[0].check_key(''.join(random.choices(string.ascii_lowercase,k=1)), KEY_INPUT)
-			a = anim.main(x[1], x[0].BLIT_IMG)
-			SCREEN.blit(x[0].BLIT_IMG, x[1])
-			next(a)
+		if count <= 3:
+			for x in flip_list:
+				x[0].check_key(''.join(random.choices(string.ascii_lowercase,k=1)), KEY_INPUT)
+				anim.main(x[1], x[0].BLIT_IMG)
+				SCREEN.blit(x[0].BLIT_IMG, x[1])
+
+		else:
+			count = 0
+			flip_list[0][0].check_key('h', KEY_INPUT)
+			anim.main(flip_list[0][1], flip_list[0][0].BLIT_IMG)
+			flip_list[1][0].check_key('e', KEY_INPUT)
+			anim.main(flip_list[1][1], flip_list[1][0].BLIT_IMG)
+			flip_list[2][0].check_key('l', KEY_INPUT)
+			anim.main(flip_list[2][1], flip_list[2][0].BLIT_IMG)
+			flip_list[3][0].check_key('l', KEY_INPUT)
+			anim.main(flip_list[3][1], flip_list[3][0].BLIT_IMG)
+			flip_list[4][0].check_key('o', KEY_INPUT)
+			anim.main(flip_list[4][1], flip_list[4][0].BLIT_IMG)
+			#SCREEN.blit(x[0].BLIT_IMG, x[1])
+
 		pygame.display.update()
+		count += 1
 			
-
-
-		#SCREEN.blit(flip_list[0][0].BLIT_IMG, flip_list[0][1])
-		#anim.main((0, 0) ,[flip_list[0][0].BLIT_IMG])
-		#SCREEN.blit(flip_list[1][0].BLIT_IMG, flip_list[1][1])
-		#anim.main((50, 0) ,[flip_list[1][0].BLIT_IMG])
-		#SCREEN.blit(flip_list[2][0].BLIT_IMG, flip_list[2][1])
-		#anim.main((100, 0) ,[flip_list[2][0].BLIT_IMG])
-		#SCREEN.blit(flip_list[3][0].BLIT_IMG, flip_list[3][1])
-		#anim.main((150, 0) ,[flip_list[3][0].BLIT_IMG])
-		#SCREEN.blit(flip_list[4][0].BLIT_IMG, flip_list[4][1])
-		#anim.main((200, 0) ,[flip_list[4][0].BLIT_IMG])
-		#pygame.display.update()
-		#time.sleep(1)
 
 	elif KEY_INPUT:
 		SCREEN.blit(check.BLIT_IMG, (0, 0))
