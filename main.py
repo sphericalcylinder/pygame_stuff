@@ -8,7 +8,7 @@ import time
 
 pygame.init()
 
-KEY_INPUT = False
+KEY_INPUT = True
 
 SCREEN_DIM = WIDTH, HEIGHT = 500, 500
 SCREEN = pygame.display.set_mode(SCREEN_DIM)
@@ -22,20 +22,20 @@ else:
 
 anim = Animate(SCREEN)
 check = Check()
+if not KEY_INPUT:
+	flip_list = [
+		[Check(), (0, 0)],
+		[Check(), (50, 0)],
+		[Check(), (100, 0)],
+		[Check(), (150, 0)],
+		[Check(), (200, 0)],
+	]
 
-flip_list = [
-	[Check(), (0, 0)],
-	[Check(), (50, 0)],
-	[Check(), (100, 0)],
-	[Check(), (150, 0)],
-	[Check(), (200, 0)],
-]
+	for x in flip_list:
+		x[0].check_key(''.join(random.choices(string.ascii_lowercase,k=1)), KEY_INPUT)
+		SCREEN.blit(x[0].BLIT_IMG, x[1])
 
-for x in flip_list:
-	x[0].check_key(''.join(random.choices(string.ascii_lowercase,k=1)), KEY_INPUT)
-	SCREEN.blit(x[0].BLIT_IMG, x[1])
-
-count = 0
+	count = 0
 
 while True:
 	#SCREEN.fill((255, 255, 255))
