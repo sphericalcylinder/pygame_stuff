@@ -4,14 +4,31 @@ from check_key import Check
 from animate import Animate
 import string
 import random
-import time
+
+
+while True:
+	try:
+		mode = int(input("What mode would you like? (1, 2, or 3) "))
+		if mode < 4 and mode > 0:
+			break
+		else:
+			raise ValueError
+	except:
+		print("Invalid input. Try again.\n")
+		continue
+
+if mode == 1:
+	KEY_INPUT = False
+	AUTO_INPUT = False
+if mode == 2:
+	KEY_INPUT = True
+	AUTO_INPUT = False
+if mode == 3:
+	KEY_INPUT = False
+	AUTO_INPUT = True
+	WORD = input("What word would you like to display? ").lower()
 
 pygame.init()
-
-KEY_INPUT = False
-AUTO_INPUT = False
-if AUTO_INPUT:
-	WORD = input("What word would you like to display? ").lower()
 
 SCREEN_DIM = WIDTH, HEIGHT = 500, 500
 SCREEN = pygame.display.set_mode(SCREEN_DIM)
@@ -44,8 +61,11 @@ if not KEY_INPUT and not AUTO_INPUT:
 
 if AUTO_INPUT and not KEY_INPUT:
 	letter_list = []
+	count2 = 0
 
 	word_len = len(WORD)
+	if word_len > 10:
+		raise Exception("Too long a word!")
 	coord1 = 0
 	for g in range(word_len):
 		letter_list.append([Check(), (coord1, 0), WORD[g]])
@@ -57,6 +77,7 @@ if AUTO_INPUT and not KEY_INPUT:
 
 
 while True:
+	pygame.display.update()
 	#SCREEN.fill((255, 255, 255))
 
 	if not KEY_INPUT and not AUTO_INPUT:
@@ -86,16 +107,21 @@ while True:
 			
 
 	if AUTO_INPUT and not KEY_INPUT:
-		for y in letter_list:
-			y[0].check_key(y[2], KEY_INPUT)
-			anim.main(y[1], y[0].BLIT_IMG)
-			SCREEN.blit(y[0].BLIT_IMG, y[1])
+		if count2 <= 5:
+			for e in letter_list:
+				e[0].check_key(''.join(random.choices(string.ascii_lowercase,k=1)), KEY_INPUT)
+				anim.main(e[1], e[0].BLIT_IMG)
+				SCREEN.blit(e[0].BLIT_IMG, e[1])
+
+		else:
+			for y in letter_list:
+				y[0].check_key(y[2], KEY_INPUT)
+				anim.main(y[1], y[0].BLIT_IMG)
+				SCREEN.blit(y[0].BLIT_IMG, y[1])
+			break
 			
-		break
-
-	if not AUTO_INPUT and KEY_INPUT:
-		SCREEN.blit(check.BLIT_IMG, (0, 0))
-
+		pygame.display.update()
+		count2 += 1
 
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
@@ -103,6 +129,8 @@ while True:
 		elif KEY_INPUT and not AUTO_INPUT and event.type == pygame.KEYDOWN:
 			check.check_key(event.key, KEY_INPUT)
 			anim.main((0, 0), check.BLIT_IMG)
+
+	pygame.display.update()
 
 while True:
 
