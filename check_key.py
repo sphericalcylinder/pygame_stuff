@@ -9,7 +9,7 @@ class Check():
         for i in range(1, 6):
             self.NUM_IMG_LIST.append(pygame.image.load(
                 f'pygame_experimenting/images/tile{i}.png'))
-        for i in range(1, 28):
+        for i in range(1, 29):
             self.IMG_LIST.append(pygame.image.load(
                 f'pygame_experimenting/images/tiles/tilex{i}.png'))
 
@@ -80,6 +80,8 @@ class Check():
                     self.BLIT_IMG = self.IMG_LIST[24]
                 case pygame.K_z:
                     self.BLIT_IMG = self.IMG_LIST[25]
+                case pygame.K_SPACE:
+                    self.BLIT_IMG = self.IMG_LIST[27]
                 case _:
                     self.BLIT_IMG = self.IMG_LIST[26]
         elif not mode:
@@ -146,3 +148,5 @@ class Check():
                     self.BLIT_IMG = self.IMG_LIST[24]
                 case 'z':
                     self.BLIT_IMG = self.IMG_LIST[25]
+                case ' ':
+                    self.BLIT_IMG = self.IMG_LIST[27]

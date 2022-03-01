@@ -14,11 +14,9 @@ class Animate:
     def __init__(self, screen):
         self.screen = screen
 
-    def main(self, coords, other_blit):
+    def main(self, coords, blit1):
         for i in range(14):
-            if i == 7:
-                yield
-            self.screen.blit(other_blit, coords)
+            self.screen.blit(blit1, coords)
             self.screen.blit(Animate.ANIM_FILES[i], coords)
             pygame.display.flip()
             time.sleep(0.01)
