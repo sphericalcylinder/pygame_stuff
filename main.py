@@ -1,5 +1,4 @@
 import pygame
-#from letter_switcher import Letter_Switcher as ls
 from check_key import Check
 from animate import Animate
 import string
@@ -7,6 +6,7 @@ import random
 
 
 while True:
+	print("Mode 1:\nRandom letters until 'hello'.\nMode 2:\n1 letter that gets key input\nMode 3:\nInput (almost) any word.")
 	try:
 		mode = int(input("What mode would you like? (1, 2, or 3) "))
 		if mode < 4 and mode > 0:
@@ -30,7 +30,7 @@ if mode == 3:
 
 pygame.init()
 
-SCREEN_DIM = WIDTH, HEIGHT = 500, 500
+SCREEN_DIM = WIDTH, HEIGHT = 500, 80
 SCREEN = pygame.display.set_mode(SCREEN_DIM)
 pygame.display.set_caption("Testing")
 
@@ -46,11 +46,11 @@ check = Check()
 if not KEY_INPUT and not AUTO_INPUT:
 
 	flip_list = [
-		[Check(), (0, 0)],
-		[Check(), (50, 0)],
-		[Check(), (100, 0)],
-		[Check(), (150, 0)],
-		[Check(), (200, 0)],
+		[Check(), (0, 0), 'h'],
+		[Check(), (50, 0), 'e'],
+		[Check(), (100, 0), 'l'],
+		[Check(), (150, 0), 'l'],
+		[Check(), (200, 0), 'o'],
 	]
 
 	for x in flip_list:
@@ -65,7 +65,7 @@ if AUTO_INPUT and not KEY_INPUT:
 
 	word_len = len(WORD)
 	if word_len > 10:
-		raise Exception("Too long a word!")
+		print("Too long a word!")
 	coord1 = 0
 	for g in range(word_len):
 		letter_list.append([Check(), (coord1, 0), WORD[g]])
@@ -89,16 +89,10 @@ while True:
 				SCREEN.blit(x[0].BLIT_IMG, x[1])
 
 		else:
-			flip_list[0][0].check_key('h', KEY_INPUT)
-			anim.main(flip_list[0][1], flip_list[0][0].BLIT_IMG)
-			flip_list[1][0].check_key('e', KEY_INPUT)
-			anim.main(flip_list[1][1], flip_list[1][0].BLIT_IMG)
-			flip_list[2][0].check_key('l', KEY_INPUT)
-			anim.main(flip_list[2][1], flip_list[2][0].BLIT_IMG)
-			flip_list[3][0].check_key('l', KEY_INPUT)
-			anim.main(flip_list[3][1], flip_list[3][0].BLIT_IMG)
-			flip_list[4][0].check_key('o', KEY_INPUT)
-			anim.main(flip_list[4][1], flip_list[4][0].BLIT_IMG)
+			for g in flip_list:
+				g[0].check_key(g[2], KEY_INPUT)
+				anim.main(g[1], g[0].BLIT_IMG)
+				SCREEN.blit(g[0].BLIT_IMG, g[1])
 			break
 			#SCREEN.blit(x[0].BLIT_IMG, x[1])
 
